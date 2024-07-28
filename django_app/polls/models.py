@@ -1,4 +1,9 @@
+from datetime import timezone
+import datetime
 from django.db import models
+
+from django.db import models
+from django.utils import timezone
 
 
 class Question(models.Model):
@@ -7,6 +12,10 @@ class Question(models.Model):
 
     def __str__(self) -> str:
         return super().__str__()
+
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 
 class Choice(models.Model):
